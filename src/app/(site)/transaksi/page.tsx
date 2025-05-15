@@ -74,6 +74,7 @@ export default function TransaksiPage() {
       <h1 className="text-xl md:text-3xl font-bold mb-4">
         Tambah Transaksi Baru
       </h1>
+
       {message && (
         <MessageBox
           type={message.type}
@@ -82,52 +83,82 @@ export default function TransaksiPage() {
         />
       )}
 
-      <Input
-        type="date"
-        value={form.tanggal}
-        onChange={(e) => setForm({ ...form, tanggal: e.target.value })}
-      />
-      <select
-        value={form.debitAkun}
-        onChange={(e) => setForm({ ...form, debitAkun: e.target.value })}
-        className="w-full border p-2 rounded"
-      >
-        <option value="">Pilih Akun Debit</option>
-        {akunList.map((akun) => (
-          <option key={akun.kode} value={akun.kode}>
-            {akun.nama} ({akun.kode})
-          </option>
-        ))}
-      </select>
-      <Input
-        type="number"
-        placeholder="Nominal Debit"
-        value={form.debitNominal}
-        onChange={(e) => setForm({ ...form, debitNominal: e.target.value })}
-      />
-      <select
-        value={form.kreditAkun}
-        onChange={(e) => setForm({ ...form, kreditAkun: e.target.value })}
-        className="w-full border p-2 rounded"
-      >
-        <option value="">Pilih Akun Kredit</option>
-        {akunList.map((akun) => (
-          <option key={akun.kode} value={akun.kode}>
-            {akun.nama} ({akun.kode})
-          </option>
-        ))}
-      </select>
-      <Input
-        type="number"
-        placeholder="Nominal Kredit"
-        value={form.kreditNominal}
-        onChange={(e) => setForm({ ...form, kreditNominal: e.target.value })}
-      />
-      <Input
-        placeholder="Keterangan"
-        value={form.keterangan}
-        onChange={(e) => setForm({ ...form, keterangan: e.target.value })}
-      />
+      {/* Tanggal */}
+      <div>
+        <label className="block mb-1 font-medium">Tanggal Transaksi</label>
+        <Input
+          type="date"
+          value={form.tanggal}
+          onChange={(e) => setForm({ ...form, tanggal: e.target.value })}
+        />
+      </div>
+
+      {/* Akun Debit */}
+      <div>
+        <label className="block mb-1 font-medium">Akun Debit</label>
+        <select
+          value={form.debitAkun}
+          onChange={(e) => setForm({ ...form, debitAkun: e.target.value })}
+          className="w-full border p-2 rounded"
+        >
+          <option value="">Pilih Akun Debit</option>
+          {akunList.map((akun) => (
+            <option key={akun.kode} value={akun.kode}>
+              {akun.nama} ({akun.kode})
+            </option>
+          ))}
+        </select>
+      </div>
+
+      {/* Nominal Debit */}
+      <div>
+        <label className="block mb-1 font-medium">Nominal Debit</label>
+        <Input
+          type="number"
+          placeholder="Masukkan nominal debit"
+          value={form.debitNominal}
+          onChange={(e) => setForm({ ...form, debitNominal: e.target.value })}
+        />
+      </div>
+
+      {/* Akun Kredit */}
+      <div>
+        <label className="block mb-1 font-medium">Akun Kredit</label>
+        <select
+          value={form.kreditAkun}
+          onChange={(e) => setForm({ ...form, kreditAkun: e.target.value })}
+          className="w-full border p-2 rounded"
+        >
+          <option value="">Pilih Akun Kredit</option>
+          {akunList.map((akun) => (
+            <option key={akun.kode} value={akun.kode}>
+              {akun.nama} ({akun.kode})
+            </option>
+          ))}
+        </select>
+      </div>
+
+      {/* Nominal Kredit */}
+      <div>
+        <label className="block mb-1 font-medium">Nominal Kredit</label>
+        <Input
+          type="number"
+          placeholder="Masukkan nominal kredit"
+          value={form.kreditNominal}
+          onChange={(e) => setForm({ ...form, kreditNominal: e.target.value })}
+        />
+      </div>
+
+      {/* Keterangan */}
+      <div>
+        <label className="block mb-1 font-medium">Keterangan</label>
+        <Input
+          placeholder="Masukkan keterangan transaksi"
+          value={form.keterangan}
+          onChange={(e) => setForm({ ...form, keterangan: e.target.value })}
+        />
+      </div>
+
       <Button variant={ButtonVariant.PRIMARY} onClick={handleSubmit}>
         Tambah Transaksi
       </Button>
