@@ -1,32 +1,32 @@
-// src/redux/slices/transactionSlice.ts
+// store/slices/transaksiSlice.ts
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-export interface Transaction {
-  id: string;
-  date: string;
-  description: string;
-  entries: {
-    accountCode: string;
-    accountName: string;
-    debit: number;
-    credit: number;
-  }[];
+export interface Transaksi {
+  tanggal: string;
+  debit: {
+    akunKode: string;
+    nominal: number;
+    keterangan: string;
+  };
+  kredit: {
+    akunKode: string;
+    nominal: number;
+    keterangan: string;
+  };
+  catatan: string;
 }
 
-const initialState: Transaction[] = [];
+const initialState: Transaksi[] = [];
 
-const transactionSlice = createSlice({
-  name: 'transactions',
+const transaksiSlice = createSlice({
+  name: 'transaksi',
   initialState,
   reducers: {
-    addTransaction: (state, action: PayloadAction<Transaction>) => {
+    tambahTransaksi: (state, action: PayloadAction<Transaksi>) => {
       state.push(action.payload);
-    },
-    deleteTransaction: (state, action: PayloadAction<string>) => {
-      return state.filter((tx) => tx.id !== action.payload);
     },
   },
 });
 
-export const { addTransaction, deleteTransaction } = transactionSlice.actions;
-export default transactionSlice.reducer;
+export const { tambahTransaksi } = transaksiSlice.actions;
+export default transaksiSlice.reducer;

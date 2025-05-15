@@ -1,34 +1,37 @@
-// src/redux/slices/accountSlice.ts
+
+// store/slices/akunSlice.ts
 import { createSlice } from '@reduxjs/toolkit';
 
-interface Account {
-  code: string;
-  name: string;
+export interface Akun {
+  kode: string;
+  nama: string;
+  tipe: 'debit' | 'kredit';
 }
 
-const initialState: Account[] = [
-  { code: '101', name: 'Kas' },
-  { code: '102', name: 'Piutang Usaha' },
-  { code: '103', name: 'Perlengkapan' },
-  { code: '104', name: 'Sewa Dibayar di Muka' },
-  { code: '105', name: 'Peralatan' },
-  { code: '201', name: 'Hutang Usaha' },
-  { code: '202', name: 'Hutang Bank' },
-  { code: '301', name: 'Modal Pemilik' },
-  { code: '302', name: 'Prive Pemilik' },
-  { code: '401', name: 'Pendapatan Jasa' },
-  { code: '402', name: 'Pendapatan Bunga' },
-  { code: '501', name: 'Beban Listrik' },
-  { code: '502', name: 'Beban Pemeliharaan' },
-  { code: '503', name: 'Beban Telepon' },
-  { code: '504', name: 'Beban Lain-Lain' },
-  { code: '505', name: 'Beban Gaji' },
+
+const initialState: Akun[] = [
+  { kode: '101', nama: 'Kas', tipe: 'debit' },
+  { kode: '102', nama: 'Piutang Usaha', tipe: 'debit'  },
+  { kode: '103', nama: 'Perlengkapan', tipe: 'debit' },
+  { kode: '104', nama: 'Sewa Dibayar di Muka', tipe: 'debit'  },
+  { kode: '105', nama: 'Peralatan', tipe: 'debit'  },
+  { kode: '201', nama: 'Hutang Usaha', tipe: 'debit' },
+  { kode: '202', nama: 'Hutang Bank', tipe: 'debit'  },
+  { kode: '301', nama: 'Modal Pemilik', tipe: 'debit'  },
+  { kode: '302', nama: 'Prive Pemilik', tipe: 'debit'  },
+  { kode: '401', nama: 'Pendapatan Jasa', tipe: 'debit'  },
+  { kode: '402', nama: 'Pendapatan Bunga', tipe: 'debit'  },
+  { kode: '501', nama: 'Beban Listrik', tipe: 'debit'  },
+  { kode: '502', nama: 'Beban Pemeliharaan', tipe: 'debit'  },
+  { kode: '503', nama: 'Beban Telepon', tipe: 'debit'  },
+  { kode: '504', nama: 'Beban Lain-Lain', tipe: 'debit'  },
+  { kode: '505', nama: 'Beban Gaji', tipe: 'debit'  },
 ];
 
-const accountSlice = createSlice({
-  name: 'accounts',
+const akunSlice = createSlice({
+  name: 'akun',
   initialState,
   reducers: {},
 });
 
-export default accountSlice.reducer;
+export default akunSlice.reducer;
