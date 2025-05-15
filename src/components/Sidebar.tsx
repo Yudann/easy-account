@@ -19,7 +19,7 @@ export default function Sidebar({ onClose }: { onClose?: () => void }) {
   const pathname = usePathname();
 
   return (
-    <aside className="h-full w-full p-6 flex flex-col justify-between bg-white">
+    <aside className="h-screen w-full p-6 flex flex-col justify-between bg-white">
       <div>
         {/* Tombol close di mobile */}
         <div className="flex justify-between items-center mb-6 md:hidden h-fit">
