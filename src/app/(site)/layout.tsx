@@ -1,8 +1,7 @@
 "use client";
 
+import { Providers } from "@/components/Provider";
 import SidebarWrapper from "@/components/SidebarWrapper";
-import { store } from "@/store";
-import { Provider } from "react-redux";
 
 export default function DashboardLayout({
   children,
@@ -13,7 +12,7 @@ export default function DashboardLayout({
     <div className="flex min-h-screen">
       <SidebarWrapper />
       <main className="flex-1 p-6 bg-gray-50">
-        <Provider store={store}>{children}</Provider>
+        <Providers>{children}</Providers>
       </main>
     </div>
   );

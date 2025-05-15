@@ -1,101 +1,133 @@
 "use client";
 
-import Button from "@/components/Button";
-import { ButtonType, ButtonVariant } from "@/components/Button/button.enum";
-import Input from "@/components/Input";
-import { akunList } from "@/lib/accounts";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/store";
+import { tambahTransaksi } from "@/store/slices/transactionSlice";
 import { useState } from "react";
+import Input from "@/components/Input";
+import Button from "@/components/Button";
+import { ButtonVariant } from "@/components/Button/button.enum";
+import MessageBox from "@/components/MessageBox";
 
-export default function TransaksiForm({
-  onAdd,
-}: {
-  onAdd: (data: any) => void;
-}) {
-  const [tanggal, setTanggal] = useState("");
-  const [keterangan, setKeterangan] = useState("");
-  const [akunDebit, setAkunDebit] = useState("");
-  const [nominalDebit, setNominalDebit] = useState("");
-  const [akunKredit, setAkunKredit] = useState("");
-  const [nominalKredit, setNominalKredit] = useState("");
+export default function TransaksiPage() {
+  const akunList = useSelector((state: RootState) => state.akun);
+  const dispatch = useDispatch();
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!akunDebit || !akunKredit || !nominalDebit || !nominalKredit) return;
+  const [form, setForm] = useState({
+    tanggal: "",
+    debitAkun: "",
+    kreditAkun: "",
+    debitNominal: "",
+    kreditNominal: "",
+    keterangan: "",
+  });
 
-    onAdd({
-      tanggal,
-      keterangan,
-      debit: { akun: akunDebit, nominal: parseInt(nominalDebit) },
-      kredit: { akun: akunKredit, nominal: parseInt(nominalKredit) },
+  const [message, setMessage] = useState<{
+    type: "success" | "error";
+    text: string;
+  } | null>(null);
+
+  const handleSubmit = () => {
+    if (
+      !form.tanggal ||
+      !form.debitAkun ||
+      !form.kreditAkun ||
+      !form.debitNominal ||
+      !form.kreditNominal ||
+      !form.keterangan
+    ) {
+      setMessage({ type: "error", text: "Semua field wajib diisi!" });
+      return;
+    }
+
+    dispatch(
+      tambahTransaksi({
+        tanggal: form.tanggal,
+        debit: {
+          akunKode: form.debitAkun,
+          nominal: Number(form.debitNominal),
+          keterangan: form.keterangan,
+        },
+        kredit: {
+          akunKode: form.kreditAkun,
+          nominal: Number(form.kreditNominal),
+          keterangan: form.keterangan,
+        },
+        catatan: form.keterangan,
+      })
+    );
+
+    setMessage({ type: "success", text: "Transaksi berhasil ditambahkan!" });
+
+    setForm({
+      tanggal: "",
+      debitAkun: "",
+      kreditAkun: "",
+      debitNominal: "",
+      kreditNominal: "",
+      keterangan: "",
     });
-
-    setTanggal("");
-    setKeterangan("");
-    setAkunDebit("");
-    setNominalDebit("");
-    setAkunKredit("");
-    setNominalKredit("");
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <div className="max-w-xl space-y-4">
+      {message && (
+        <MessageBox
+          type={message.type}
+          message={message.text}
+          onClose={() => setMessage(null)}
+        />
+      )}
+
       <Input
         type="date"
-        value={tanggal}
-        onChange={(e) => setTanggal(e.target.value)}
-        required
+        value={form.tanggal}
+        onChange={(e) => setForm({ ...form, tanggal: e.target.value })}
+      />
+      <select
+        value={form.debitAkun}
+        onChange={(e) => setForm({ ...form, debitAkun: e.target.value })}
+        className="w-full border p-2 rounded"
+      >
+        <option value="">Pilih Akun Debit</option>
+        {akunList.map((akun) => (
+          <option key={akun.kode} value={akun.kode}>
+            {akun.nama} ({akun.kode})
+          </option>
+        ))}
+      </select>
+      <Input
+        type="number"
+        placeholder="Nominal Debit"
+        value={form.debitNominal}
+        onChange={(e) => setForm({ ...form, debitNominal: e.target.value })}
+      />
+      <select
+        value={form.kreditAkun}
+        onChange={(e) => setForm({ ...form, kreditAkun: e.target.value })}
+        className="w-full border p-2 rounded"
+      >
+        <option value="">Pilih Akun Kredit</option>
+        {akunList.map((akun) => (
+          <option key={akun.kode} value={akun.kode}>
+            {akun.nama} ({akun.kode})
+          </option>
+        ))}
+      </select>
+      <Input
+        type="number"
+        placeholder="Nominal Kredit"
+        value={form.kreditNominal}
+        onChange={(e) => setForm({ ...form, kreditNominal: e.target.value })}
       />
       <Input
-        placeholder="Keterangan Umum"
-        value={keterangan}
-        onChange={(e) => setKeterangan(e.target.value)}
+        placeholder="Keterangan"
+        value={form.keterangan}
+        onChange={(e) => setForm({ ...form, keterangan: e.target.value })}
       />
-
-      <div className="flex gap-4">
-        <select
-          value={akunDebit}
-          onChange={(e) => setAkunDebit(e.target.value)}
-          className="flex-1"
-        >
-          <option value="">-- Pilih Akun Debit --</option>
-          {akunList.map((a) => (
-            <option
-              key={a.kode}
-              value={a.kode}
-            >{`${a.nama} - ${a.kode}`}</option>
-          ))}
-        </select>
-        <Input
-          placeholder="Nominal Debit"
-          value={nominalDebit}
-          onChange={(e) => setNominalDebit(e.target.value)}
-        />
-      </div>
-
-      <div className="flex gap-4">
-        <select
-          value={akunKredit}
-          onChange={(e) => setAkunKredit(e.target.value)}
-          className="flex-1"
-        >
-          <option value="">-- Pilih Akun Kredit --</option>
-          {akunList.map((a) => (
-            <option
-              key={a.kode}
-              value={a.kode}
-            >{`${a.nama} - ${a.kode}`}</option>
-          ))}
-        </select>
-        <Input
-          placeholder="Nominal Kredit"
-          value={nominalKredit}
-          onChange={(e) => setNominalKredit(e.target.value)}
-        />
-      </div>
-
-      <Button variant={ButtonVariant.PRIMARY} type={ButtonType.SUBMIT}>
-        Simpan
+      <Button variant={ButtonVariant.PRIMARY} onClick={handleSubmit}>
+        Tambah Transaksi
       </Button>
-    </form>
+    </div>
   );
 }
