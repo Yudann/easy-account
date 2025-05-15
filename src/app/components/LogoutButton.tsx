@@ -18,7 +18,7 @@ export default function LogoutButton() {
     <>
       <button
         onClick={() => setShowModal(true)}
-        className="text-sm bg-red-500 text-white py-1 px-3 rounded cursor-pointer"
+        className="text-sm bg-red-500 text-white py-2 px-3 rounded cursor-pointer hover:bg-red-600 transition"
       >
         Logout
       </button>
