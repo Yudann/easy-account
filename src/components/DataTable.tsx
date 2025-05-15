@@ -14,7 +14,7 @@ import { ButtonVariant } from "@/components/Button/button.enum";
 // ModuleRegistry.registerModules([ClientSideRowModelModule]);
 ModuleRegistry.registerModules([AllCommunityModule]);
 
-interface DataTableProps<TData extends object = any> {
+interface DataTableProps<TData extends object = Record<string, unknown>> {
   height?: string;
   rowHeight?: number;
   columnDefs: ColDef<TData>[]; // Kolom
