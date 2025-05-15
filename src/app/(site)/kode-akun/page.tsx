@@ -29,7 +29,7 @@ export default function KodeAkunPage() {
 
   return (
     <div>
-      <h1 className="text-xl font-bold mb-4">Kode Akun</h1>
+      <h1 className="text-xl md:text-3xl font-bold mb-4">Kode Akun</h1>
       <DataTable columnDefs={columnDefs} rowData={rowData} quickFilter />
     </div>
   );

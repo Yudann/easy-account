@@ -71,6 +71,9 @@ export default function TransaksiPage() {
 
   return (
     <div className="max-w-xl space-y-4">
+      <h1 className="text-xl md:text-3xl font-bold mb-4">
+        Tambah Transaksi Baru
+      </h1>
       {message && (
         <MessageBox
           type={message.type}

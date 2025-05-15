@@ -55,7 +55,7 @@ export default function JurnalUmumPage() {
 
   return (
     <div>
-      <h1 className="text-xl font-bold mb-4">Jurnal Umum</h1>
+      <h1 className="text-xl md:text-3xl font-bold mb-4">Jurnal Umum</h1>
       <DataTable columnDefs={columnDefs} rowData={rowData} quickFilter />
     </div>
   );
