@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/store";
 import DataTable from "@/components/DataTable";
 import { ColDef } from "ag-grid-community";
+import { akunList } from "@/lib/accounts";
 
 interface JurnalRow {
   tanggal: string;
@@ -16,7 +17,10 @@ interface JurnalRow {
 
 export default function JurnalUmumPage() {
   const transaksi = useSelector((state: RootState) => state.transaksi);
-
+  const getNamaAkun = (kode: string) => {
+    const akun = akunList.find((a) => a.kode === kode);
+    return akun?.nama ?? "Akun Tidak Ditemukan";
+  };
   const columnDefs: ColDef<JurnalRow>[] = [
     { field: "tanggal", headerName: "Tanggal" },
     { field: "keterangan", headerName: "Keterangan" },
@@ -28,10 +32,24 @@ export default function JurnalUmumPage() {
   const rowData = transaksi.flatMap((trx) => [
     {
       tanggal: trx.tanggal,
-      keterangan: trx.debit.keterangan,
+      keterangan: getNamaAkun(trx.debit.akunKode),
       ref: trx.debit.akunKode,
       debit: trx.debit.nominal.toLocaleString(),
+      kredit: "",
+    },
+    {
+      tanggal: "",
+      keterangan: getNamaAkun(trx.kredit.akunKode),
+      ref: trx.kredit.akunKode,
+      debit: "",
       kredit: trx.kredit.nominal.toLocaleString(),
+    },
+    {
+      tanggal: "",
+      keterangan: `(${trx.catatan})`,
+      ref: "",
+      debit: "",
+      kredit: "",
     },
   ]);
 
