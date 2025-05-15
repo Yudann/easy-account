@@ -7,6 +7,7 @@ import LogoutButton from "./LogoutButton";
 
 const menuItems = [
   { name: "Dashboard", path: "/dashboard" },
+  { name: "Kode Akun", path: "/kode-akun" },
   { name: "Transaksi", path: "/transaksi" },
   { name: "Jurnal Umum", path: "/jurnal-umum" },
   { name: "Buku Besar", path: "/buku-besar" },
