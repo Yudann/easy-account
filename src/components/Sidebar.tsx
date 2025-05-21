@@ -12,8 +12,8 @@ const menuItems = [
   { name: "Jurnal Umum", path: "/jurnal-umum" },
   { name: "Buku Besar", path: "/buku-besar" },
   { name: "Neraca Saldo", path: "/neraca-saldo" },
-  { name: "Laporan Laba Rugi", path: "/laporan/laba-rugi" },
-  { name: "Laporan Neraca", path: "/laporan/neraca" },
+  { name: "Laporan Laba Rugi", path: "/laba-rugi" },
+  { name: "Laporan Neraca", path: "/neraca" },
 ];
 
 export default function Sidebar({ onClose }: { onClose?: () => void }) {
