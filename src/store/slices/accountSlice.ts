@@ -1,35 +1,36 @@
-
 // store/slices/akunSlice.ts
-import { createSlice } from '@reduxjs/toolkit';
+
+import { createSlice } from "@reduxjs/toolkit";
+
+export type AkunTipe = "Aset" | "Liabilitas" | "Ekuitas" | "Pendapatan" | "Beban";
 
 export interface Akun {
   kode: string;
   nama: string;
-  tipe: 'debit' | 'kredit';
+  tipe: AkunTipe;
 }
 
-
 const initialState: Akun[] = [
-  { kode: '101', nama: 'Kas', tipe: 'debit' },
-  { kode: '102', nama: 'Piutang Usaha', tipe: 'debit'  },
-  { kode: '103', nama: 'Perlengkapan', tipe: 'debit' },
-  { kode: '104', nama: 'Sewa Dibayar di Muka', tipe: 'debit'  },
-  { kode: '105', nama: 'Peralatan', tipe: 'debit'  },
-  { kode: '201', nama: 'Hutang Usaha', tipe: 'debit' },
-  { kode: '202', nama: 'Hutang Bank', tipe: 'debit'  },
-  { kode: '301', nama: 'Modal Pemilik', tipe: 'debit'  },
-  { kode: '302', nama: 'Prive Pemilik', tipe: 'debit'  },
-  { kode: '401', nama: 'Pendapatan Jasa', tipe: 'debit'  },
-  { kode: '402', nama: 'Pendapatan Bunga', tipe: 'debit'  },
-  { kode: '501', nama: 'Beban Listrik', tipe: 'debit'  },
-  { kode: '502', nama: 'Beban Pemeliharaan', tipe: 'debit'  },
-  { kode: '503', nama: 'Beban Telepon', tipe: 'debit'  },
-  { kode: '504', nama: 'Beban Lain-Lain', tipe: 'debit'  },
-  { kode: '505', nama: 'Beban Gaji', tipe: 'debit'  },
+  { kode: "101", nama: "Kas", tipe: "Aset" },
+  { kode: "102", nama: "Piutang Usaha", tipe: "Aset" },
+  { kode: "103", nama: "Perlengkapan", tipe: "Aset" },
+  { kode: "104", nama: "Sewa Dibayar di Muka", tipe: "Aset" },
+  { kode: "105", nama: "Peralatan", tipe: "Aset" },
+  { kode: "201", nama: "Hutang Usaha", tipe: "Liabilitas" },
+  { kode: "202", nama: "Hutang Bank", tipe: "Liabilitas" },
+  { kode: "301", nama: "Modal Pemilik", tipe: "Ekuitas" },
+  { kode: "302", nama: "Prive Pemilik", tipe: "Ekuitas" },
+  { kode: "401", nama: "Pendapatan Jasa", tipe: "Pendapatan" },
+  { kode: "402", nama: "Pendapatan Bunga", tipe: "Pendapatan" },
+  { kode: "501", nama: "Beban Listrik", tipe: "Beban" },
+  { kode: "502", nama: "Beban Pemeliharaan", tipe: "Beban" },
+  { kode: "503", nama: "Beban Telepon", tipe: "Beban" },
+  { kode: "504", nama: "Beban Lain-Lain", tipe: "Beban" },
+  { kode: "505", nama: "Beban Gaji", tipe: "Beban" },
 ];
 
 const akunSlice = createSlice({
-  name: 'akun',
+  name: "akun",
   initialState,
   reducers: {},
 });
